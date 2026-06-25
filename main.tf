@@ -59,7 +59,7 @@ module "blog_sg" {
   }
 
   egress_rules = {
-    all {
+    all =  {
       ip_protocol = "-1"
       cidr_ipv4 = "0.0.0.0/0"
     }
