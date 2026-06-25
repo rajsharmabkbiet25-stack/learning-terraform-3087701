@@ -41,7 +41,7 @@ module "blog_sg" {
   # ingress_rules = ["http-80-tcp" , "https-443-tcp"]
   # ingress_cidr_blocks = ["0.0.0.0/0"]
 
-  ingress_rules{
+  ingress_rules = {
     http = {
       from_port = "80"
       to_port = "80"
