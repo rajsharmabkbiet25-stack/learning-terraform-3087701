@@ -175,7 +175,7 @@ module "blog_asg" {
   max_size = 2
 
   vpc_zone_identifier = module.blog_vpc.public_subnets
-  launch_templete_name = "blog"
+  launch_template_name = "blog"
   vpc_security_group_ids = [module.blog_sg.id]
 
   image_id           = data.aws_ami.app_ami.id
