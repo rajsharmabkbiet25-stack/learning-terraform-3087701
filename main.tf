@@ -171,8 +171,8 @@ module "blog_asg" {
 
   name = "blog"
 
-  min = 1
-  max = 2
+  min_size = 1
+  max_size = 2
 
   vpc_zone_identifier = module.blog_vpc.public_subnets
   launch_templete_name = "blog"
