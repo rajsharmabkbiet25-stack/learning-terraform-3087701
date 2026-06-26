@@ -164,3 +164,49 @@ resource "aws_lb_target_group_attachment" "blog" {
   target_id        = aws_instance.web.id
   port             = 80
 }
+
+module "blog_asg" {
+  source  = "terraform-aws-modules/autoscaling/aws"
+  version = "9.2.1"
+
+  name = "blog"
+
+  min = 1
+  max = 2
+
+  vpc_zone_identifier = module.blog_vpc.public_subnets
+  launch_templete_name = "blog"
+  vpc_security_group_ids = [module.blog_sg.id]
+
+  image_id           = data.aws_ami.app_ami.id
+  instance_type = var.instance_type
+
+  traffic_source_attachments = {
+    alb = {
+      traffic_source_identifier = aws_lb_target_group.blog.arn
+      traffic_source_type = "elbv2"
+    }
+  }
+}
+
+/* resource "aws_instance" "web" {
+  
+  
+
+  subnet_id = module.blog_vpc.public_subnets[0]
+
+  user_data = <<-EOF
+#!/bin/bash
+dnf install -y java-17-amazon-corretto tomcat
+systemctl enable tomcat
+systemctl start tomcat
+EOF
+
+  vpc_security_group_ids = [module.blog_sg.id]
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
+*/
