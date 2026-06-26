@@ -9,7 +9,7 @@ moved {
 }
 
 moved {
-    from = module.bweb_alb
+    from = module.web_alb
     to = module.dev.module.web_alb
 }
 
